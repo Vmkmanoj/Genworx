@@ -1,0 +1,87 @@
+create table users(
+
+	userId serial primary key not null,
+	userName varchar(200) not null,
+	city varchar(200) not null,
+	userDetials text not null,
+	created_at timestamptz default now()
+)
+
+-- alter table users add primary key(userId);
+
+-- select * from users;
+
+create table post(
+	postId serial primary key not null,
+	tittle varchar(200) not null,
+	contents text not null,
+	userId serial not null,
+	created_at timestamptz default now() not null,
+	constraint fk_post_user foreign key (userId) references users(userId) on delete cascade
+)
+
+alter table post alter column userId type int
+
+create table command(
+
+	commandId serial primary key not null,
+	command text,
+	creatd_at timestamptz default now() not null,
+
+	postId serial not null,
+	userId serial not null,
+
+	constraint fk_command_user foreign key (userId) references users(userId) on delete cascade,
+	constraint fk_command_post foreign key (postId) references post(postId) on delete cascade
+)
+alter table command alter column userId type int
+alter table command alter column postId type int
+
+
+select * from post;
+
+select * from command
+
+INSERT INTO users (userName, city, userDetials)
+VALUES
+('Manoj', 'Chennai', 'React Developer'),
+('Kumar', 'Coimbatore', 'Node.js Developer'),
+('Ravi', 'Salem', 'Python Developer'),
+('Priya', 'Madurai', 'Frontend Developer'),
+('Anu', 'Erode', 'Full Stack Developer');
+
+INSERT INTO post (tittle, contents, userId)
+VALUES
+('React Basics', 'Introduction to React and Components', 1),
+('Node.js Guide', 'Understanding Express and APIs', 2),
+('Python Tips', 'Useful Python tricks for beginners', 3),
+('CSS Tricks', 'Modern CSS techniques and layouts', 4),
+('PostgreSQL Intro', 'Learning PostgreSQL fundamentals', 5);
+
+INSERT INTO command (command, postId, userId)
+VALUES
+('Great article on React!', 1, 2),
+('This helped me understand APIs.', 2, 1),
+('Very useful Python tips.', 3, 5),
+('Nice explanation of CSS Grid.', 4, 3),
+('PostgreSQL is awesome!', 5, 4);
+
+
+select * from users;
+select * from post;
+select * from command;
+
+select * from users inner join post on users.userId = post.postid where users.userid = 1 or users.userid = 2
+
+select * from users inner join command on users.userId = command.postId where command.postid = 1
+
+select * from users full outer join post on users.userId = post.postid
+
+select users.userName , post.contents from users full outer join post on users.userId = post.postid
+
+select * from users cross join post
+
+select users.userName , post,contensts from users, full user outer join post in uesrs.userId = post.postId 
+
+
+

@@ -8,7 +8,6 @@ class ContactBook:
 class ContactManager:
     def __init__(self):
         self.contacts = []
-    
     def addContact(self):
         name = input("Enter the Name: ")
         phoneNumber = input("Enter the Phone Number: ")
