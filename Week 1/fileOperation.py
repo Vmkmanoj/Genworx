@@ -34,6 +34,7 @@ class contact:
         with open("contacts.txt","w") as f:
             for contact in contacts:
                 if name in contact:
+                    name = input("Enter the name")
                     new_phoneNumber = input("Enter the new phone number: ")
                     new_city = input("Enter the new city: ")
                     f.write(f"{name},{new_phoneNumber},{new_city}\n")
